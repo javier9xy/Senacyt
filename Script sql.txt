@@ -1,0 +1,42 @@
+
+--a.
+Select inv.Nombre, inv.Edad, inv.Genero, inv.Nombre, inv.pais, inv.nombre
+from Investigador inv
+join Etnia e on e.id_etnia = inv.idetnia
+join Pais p on p.id_pais = inv.idpais
+
+
+-- b.
+Select Entidad.Entidad, Areaaplicacion.nombre, tipo.nombre 
+from Entidad 
+join Areaaplicacion on Areaaplicacion.id_area_aplicacion = e.id_area_aplicacion
+join tipo on tipo.id_tipo = Entidad.id_tipo;
+
+-- c.
+Select p.descripcion, e.nombre estado, a.nombre area_cientifica, year(p.fecha_inicio)  p.monto_aprobado monto, 
+l.nombre lineafinanciamiento, c.nombre convocatoria
+from proyecto p
+join estado e on e.id_estado = p.id_estado
+join area_cientifica a on a.id_area_cientifica = p.id_area_cientifica
+join investigador_entidad ie on ie.id_investigador_entidad = p.id_investigador_entidad
+join investigador i on i.cui = ie.cui
+join convocatoria c on c.id_convocatoria = p.id_convocatoria
+join linea_financiamiento l on l.id_linea_financiamiento = c.id_linea_financiamiento;
+
+
+
+-- f.
+
+select e.nombre entidad, count(*) cantidad_proyectos, sum(p.monto_aprobado) monto_total 
+from proyecto p
+join investigador_entidad ie on ie.id_investigador_entidad = p.id_investigador_entidad
+join entidad e on e.id_entidad = ie.id_entidad
+group by 1;
+
+-- f.
+
+select l.nombre linea_financiamiento, count(*) cantidad_proyectos, sum(p.monto_aprobado) monto_total 
+from proyecto p
+join convocatoria c on c.id_convocatoria = p.id_convocatoria
+join linea_financiamiento l on l.id_linea_financiamiento = c.id_linea_financiamiento
+group by 1;
